@@ -4,7 +4,8 @@ let dataString = '89 30 25 32 72 70 51 42 25 24 53 55 78 50 13 40 48 32 26 2 14 
 
 const dataArray = dataString.split(' ').map(element => parseInt(element, 10));
 
-const sortedArray = dataArray.sort((a, b) => (a - b));
+const sortedArray = dataArray.sort((a, b) => (a - b)).join(', ');
+console.log(sortedArray);
 // O(?)
 
 function linearSearch(array, value){
