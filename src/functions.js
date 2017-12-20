@@ -1,43 +1,38 @@
-'use strict';
+///// EXERCISE 3
 
-let dataString = '89 30 25 32 72 70 51 42 25 24 53 55 78 50 13 40 48 32 26 2 14 33 45 72 56 44 21 88 27 68 15 93 98 73 28 16 46 87 28 65 38 67 16 85 63 23 69 64 91 9 70 81 27 97 82 6 88 3 7 46 13 11 64 31 26 38 28 13 17 69 90 1 6 7 64 43 9 73 80 98 46 27 22 87 49 83 6 39 42 51 54 84 34 53 78 40 14 5 76 62';
+// **PROMPT**
+// Imagine you are looking for a book in a library with a Dewey Decimal index.
+// How would you go about it? Can you express this process as a searching algorithm?
 
-const dataArray = dataString.split(' ').map(element => parseInt(element, 10));
+// **DATA**
+const library = [
+	'005.133 Mike Cowlishaw: The REXX Language',
+	'005.133 Sams: Teach Yourself C++ In 21 Days',
+	'005.133 Bjarne Stroustrup: The C++ Programming Language',
+	'005.2762 Douglas Crockford: JavaScript: The Good Parts',
+	'005.2762 David Flanagan: JavaScript: The Definitive Guide',
+	'005.44684 Meinhard Schmidt: Windows Vista for Dummies', //It certainly is...
+	'220.52081 Zondervan: NIV Study Bible',
+	'231.7652 Dr Russell Humphries: Starlight and Time',
+	'623.82509051 Frederick Thomas Jane: Jane\'s Fighting Ships', //So far, the ships are winning.
+	'796.8092 Chuck Norris: The Official Chuck Norris Fact Book',
+];
 
-const sortedArray = dataArray.sort((a, b) => (a - b)).join(', ');
-console.log(sortedArray);
-// O(?)
+let searchBook = (library, search) => {
+	let length = search.length;
+	let results = [];
 
-function linearSearch(array, value){
-	let counter = 0;
-	for (let i=0; i < array.length; i++) {
-		if (array[i] === value) {
-			return `Number of tries: ${i + 1}`;
+	for (let i = 0; i < library.length; i++) {
+		if (library[i].slice(0, length) === search) {
+			results.push(library[i]);
 		}
 	}
-}
-// Testing linearSearch
-// console.log(linearSearch(array, 68));
-// O(n)
 
-function binarySearch(array, value, start = 0, end = array.length, counter = 1){
-	if (start > end) {
-		return -1;
+	if (!results.length) {
+		throw new Error('Book not found');
+	} else {
+		return results;
 	}
-	let index = Math.floor((start+end)/2);
-	let result = array[index];
+};
 
-	if (result === value) {
-		return [index, counter];
-	}
-	else if (result < value) {
-		return binarySearch(array, value, index + 1, end, counter + 1);
-	}
-	else if (result > value) {
-		return binarySearch(array, value, start, index - 1, counter + 1);
-	}
-}
-
-// Test binary search
-// console.log(binarySearch(sortedArray, 1));
-// O(log n);
+console.log(searchBook(library, '7'));
