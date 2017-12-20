@@ -21,8 +21,9 @@ For this exercise 1 and 2, you will be using a searching algorithm to search for
 1. Box (Input)
 2. Button (Linear)
 3. Button (Binary)
+4. Stateful Component (class)
 
 ## STRATEGY
-1. If Linear: No need to sort. Simple for loop and retrieve [i];
+1. If Linear: No need to sort. Simple for loop and retrieve [i]; include counter.
 2. If Binary: Sort Data. Binary search function needs to include counter.
 
