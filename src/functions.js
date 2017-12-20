@@ -53,158 +53,158 @@
 'use strict';
 
 class BinarySearchTree {
-  constructor(key=null, value=null, parent=null) {
-    this.key = key;
-    this.value = value;
-    this.parent = parent;
-    this.left = null;
-    this.right = null;
-  }
+	constructor(key=null, value=null, parent=null) {
+		this.key = key;
+		this.value = value;
+		this.parent = parent;
+		this.left = null;
+		this.right = null;
+	}
 
-  insert(key, value) {
-    if (this.key === null) {
-      this.key = key;
-      this.value = value;
-    }
-    else if (key < this.key) {
-      if (this.left === null) {
-        this.left = new BinarySearchTree(key, value, this);
-      }
-      else {
-        this.left.insert(key, value);
-      }
-    }
-    else {
-      if (this.right === null) {
-        this.right = new BinarySearchTree(key, value, this);
-      }
-      else {
-        this.right.insert(key, value);
-      }
-    }
-  }
-
-
-  get(key){
-    if(this.key === key){
-      return this.value;
-    }
-    else if(key < this.key && this.left){
-      return this.left.get(key);
-    }
-    else if(key > this.key && this.right){
-      return this.right.get(key);
-    }
-    else {
-      throw new Error('Key Error');
-    }
-  }
+	insert(key, value) {
+		if (this.key === null) {
+			this.key = key;
+			this.value = value;
+		}
+		else if (key < this.key) {
+			if (this.left === null) {
+				this.left = new BinarySearchTree(key, value, this);
+			}
+			else {
+				this.left.insert(key, value);
+			}
+		}
+		else {
+			if (this.right === null) {
+				this.right = new BinarySearchTree(key, value, this);
+			}
+			else {
+				this.right.insert(key, value);
+			}
+		}
+	}
 
 
-  remove(key){
-    if (this.key === key){
-      if (this.left && this.right){
-        const successor = this.left._findMax();
-        this.key = successor.key;
-        this.value = successor.value;
-        successor.remove(successor.key);
-      }
-      else if (this.left){
-        this._replaceWith(this.left);
-      }
-      else if (this.right){
-        this._replaceWith(this.right);
-      }
-      else {
-        this._replaceWith(null);
-      }
-    }
-    else if (key < this.key && this.left){
-      this.left.remove(key);
-    }
-    else if (key > this.key && this.right){
-      this.right.remove(key);
-    }
-    else {
-      throw new Error('Key Error');
-    }
-  }
+	get(key){
+		if(this.key === key){
+			return this.value;
+		}
+		else if(key < this.key && this.left){
+			return this.left.get(key);
+		}
+		else if(key > this.key && this.right){
+			return this.right.get(key);
+		}
+		else {
+			throw new Error('Key Error');
+		}
+	}
 
 
-  _replaceWith(node){
-    if(this.parent){
-      if(this === this.parent.left){
-        this.parent.left = node;
-      }
-      else if(this === this.parent.right){
-        this.parent.right = node;
-      }
-      if(node){
-        node.parent = this.parent;
-      }
-    }
-    else{
-      if (node){
-        this.key = node.key;
-        this.value = node.value;
-        this.left = node.left;
-        this.right = node.right;
-      }
-      else {
-        this.key = null;
-        this.value = null;
-        this.left = null;
-        this.right = null;
-      }
-    }
-  }
+	remove(key){
+		if (this.key === key){
+			if (this.left && this.right){
+				const successor = this.left._findMax();
+				this.key = successor.key;
+				this.value = successor.value;
+				successor.remove(successor.key);
+			}
+			else if (this.left){
+				this._replaceWith(this.left);
+			}
+			else if (this.right){
+				this._replaceWith(this.right);
+			}
+			else {
+				this._replaceWith(null);
+			}
+		}
+		else if (key < this.key && this.left){
+			this.left.remove(key);
+		}
+		else if (key > this.key && this.right){
+			this.right.remove(key);
+		}
+		else {
+			throw new Error('Key Error');
+		}
+	}
 
 
-  _findMax(){
-    if(!this.right){
-      return this;
-    }
-    else {
-      return this.right._findMax();
-    }
-  }
+	_replaceWith(node){
+		if(this.parent){
+			if(this === this.parent.left){
+				this.parent.left = node;
+			}
+			else if(this === this.parent.right){
+				this.parent.right = node;
+			}
+			if(node){
+				node.parent = this.parent;
+			}
+		}
+		else{
+			if (node){
+				this.key = node.key;
+				this.value = node.value;
+				this.left = node.left;
+				this.right = node.right;
+			}
+			else {
+				this.key = null;
+				this.value = null;
+				this.left = null;
+				this.right = null;
+			}
+		}
+	}
 
 
-  _findMin(){
-    if(!this.left){
-      return this;
-    }
-    else {
-      return this.left._findMin();
-    }
-  }
+	_findMax(){
+		if(!this.right){
+			return this;
+		}
+		else {
+			return this.right._findMax();
+		}
+	}
+
+
+	_findMin(){
+		if(!this.left){
+			return this;
+		}
+		else {
+			return this.left._findMin();
+		}
+	}
 }
 
-let newTree = new BinarySearchTree();
-let array = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
+// let newTree = new BinarySearchTree();
+// let array = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
 
 function growTree(array, tree){
-  for(let i=0; i < array.length; i++){
-    tree.insert(array[i], 0);
-  }
-  return tree;
+	for(let i=0; i < array.length; i++){
+		tree.insert(array[i], 0);
+	}
+	return tree;
 }
 
-growTree(array, newTree);
+// growTree(array, newTree);
 
 //Process, Left, Right
 function preOrder(tree){
 	console.log(tree.key);
 	if(tree.left){
-    preOrder(tree.left);
-  }
-  if(tree.right){
-    preOrder(tree.right);
-  }
+		preOrder(tree.left);
+	}
+	if(tree.right){
+		preOrder(tree.right);
+	}
 }
 
 function inOrder(tree){
-  //Left, Process, Right
+	//Left, Process, Right
 	if(tree.left){
   	inOrder(tree.left);
 	}
@@ -224,4 +224,50 @@ function postOrder(tree){
 	console.log(tree.key);
 }
 
-postOrder(newTree);
+// postOrder(newTree);
+
+///// EXERCISE 5
+
+// **PROMPT**
+// The share price for a company over a week's trading is as follows: 
+const prices = [128, 97, 121, 123, 98, 97, 105];
+// If you had to buy shares in the company on one day, 
+// and sell the shares on one of the following days, write an algorithm to work
+//  out what the maximum profit you could make would be.
+
+// see if element is greater or less than the following values
+//
+
+let findTrade = prices => {
+	let sale = 0;
+	let buy = 0;
+	let sell = 0;
+
+	for (let i = 0; i < prices.length - 1; i++) {
+		let subprofits = [];
+		for (let j = i; j < prices.length; j++) {
+			if (i !== j) {
+				subprofits.push(prices[j] - prices[i]);
+			}
+		}
+
+		let max = subprofits[0];
+		let maxDay = 1;
+
+		for (let k = 1; k < subprofits.length; k++) {
+			if (subprofits[k] > max) {
+				max = subprofits[k];
+				maxDay = k + 1;
+			}
+		}
+
+		if (max > sale) {
+			buy = i + 1;
+			sell = i + 1 + maxDay;
+			sale = max;
+		}
+	}
+	return (`Buy on Day ${buy}, sell on Day ${sell} for a profit of $${sale}.`);
+};
+
+console.log(findTrade(prices));
