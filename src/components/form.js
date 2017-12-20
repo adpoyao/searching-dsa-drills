@@ -14,18 +14,18 @@ export default class Form extends React.Component {
 
     linearSearch(){
         let array = this.state.dataArray;
-        let value = this.textInput.value;
+        let value = parseInt(this.textInput.value, 10);
         for (let i=0; i < array.length; i++) {
             if (array[i] === value) {
                 let counter = i+1;
-                return this.setState({counter});
-            }
+                this.setState({index: i, counter});
+                return;}
         }
     }
 
     binarySearch(start=0, end=this.state.sortedArray.length, counter=1){
         let array = this.state.sortedArray;
-        let value = this.textInput.value;
+        let value = parseInt(this.textInput.value, 10);
         let index = Math.floor((start+end)/2);
         let result = array[index];
         
@@ -33,7 +33,8 @@ export default class Form extends React.Component {
             return -1;
         }  
         if (result === value) {
-            return this.setState({index, counter});
+            this.setState({index, counter});
+            return;
         }
         else if (result < value) {
             return this.binarySearch(index + 1, end, counter + 1);
@@ -42,7 +43,6 @@ export default class Form extends React.Component {
             return this.binarySearch(start, index - 1, counter + 1);
         }
     }
-
     
     render() {
         return (
@@ -50,7 +50,7 @@ export default class Form extends React.Component {
                 <form>
                     <input type="text" name="search-string" ref={input => this.textInput = input} placeholder="input search query"></input>
                     <button type="button" onClick={() => this.linearSearch()}>Linear</button>
-                    <button type="button" onClick={e => console.log('binary clicked')}>Binary</button>
+                    <button type="button" onClick={e => this.binarySearch()}>Binary</button>
                 </form>
                 <Result counter={this.state.counter} index={this.state.index} />
             </div>
